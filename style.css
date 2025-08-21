@@ -243,7 +243,7 @@ button:hover {
     th,td{
         font-size: 1vh;
     }
-    form button {
+    form button,#addTeacher {
         font-size: 8px;
         padding: 6px 6px;
         margin: 10px auto;
