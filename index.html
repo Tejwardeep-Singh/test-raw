@@ -141,9 +141,7 @@
                         <form action="">
                             <button type="submit"> <i class="fa-solid fa-upload"></i> Upload Plan</button>
                         </form>
-                        <form action="">
-                            <button type="submit"><i class="fa-solid fa-user-plus"></i> Add Teacher</button>
-                        </form>
+                        <h4 id="addTeacher"><i class="fa-solid fa-user-plus"></i> Add Teacher</h4>
                     </div>
                     <div class="form-right">
                         <form action="">
@@ -166,7 +164,12 @@
                 </div>
                 <div id="label">
                     <label for="dept">Department:</label>
-                    <input type="text" name="dept" id="dept">
+                    <select name="dept" id="dept">
+                        <option value="cse">CSE</option>
+                        <option value="civil">Civil</option>
+                        <option value="law">Law</option>
+                        <option value="pharma">Pharma</option>
+                    </select>
                 </div>
                 <button>Submit</button>
             </form>
