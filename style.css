@@ -97,6 +97,18 @@ option{
     background-color: transparent;
     color: #111;
 }
+#forms{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content:center;
+}
+form{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 form button {
     height: fit-content;
     width: fit-content;
@@ -107,7 +119,8 @@ form button {
     cursor: pointer;
     border-radius: 5px;
     transition: background-color 0.3s ease;
-    padding: 2% 20%;
+    padding: 8px 10px;
+    font-weight: 900
 }
 button:hover {
   background-color:#003268;
