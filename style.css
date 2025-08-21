@@ -101,13 +101,21 @@ option{
     width: 100%;
     display: flex;
     align-items: center;
-    justify-content:center;
+    justify-content:space-between;
 }
-form{
-    width: 100%;
+.form-left{
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content:flex-start;
+    gap: 1vh;
+}
+.form-right{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+.form-right button{
+    background-color: rgb(255, 31, 31);
 }
 form button {
     height: fit-content;
@@ -124,14 +132,6 @@ form button {
 }
 button:hover {
   background-color:#003268;
-}
-#forms{
-    height: fit-content;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content:center;
-    gap: 2vw;
 }
 #header{
     height: auto;
@@ -182,8 +182,8 @@ button:hover {
         font-size: 1vh;
     }
     form button {
-        font-size: 14px;
-        padding: 6px 12px;
+        font-size: 8px;
+        padding: 6px 6px;
         margin: 10px auto;
         
     }
@@ -196,5 +196,9 @@ button:hover {
     }
     #header{
         padding-top: 0;
+    }
+    select{
+        font-size:1vh;
+        font-weight: 400;
     }
 }
