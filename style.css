@@ -171,6 +171,67 @@ button:hover {
     font-family: arial,'sans serif';
     color: #111;
 }
+#dialog-box{
+    height: 50vh;
+    width:fit-content;
+    padding: 1% 5%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    background-color: #007bff7e;
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    display: none;
+}
+#dialog-box form{
+    height: auto;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4vh;
+    flex-direction: column;
+}
+#dialog-box h2{
+    font-weight: 900;
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+    -webkit-text-stroke: 1.5px white;
+    font-size: 6vh;
+}
+#label{
+    height: fit-content;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content:center;
+    gap: 1vh;
+    background-color: white;
+    padding: 0 4%;
+    border-radius: 5px;
+}
+#label label{
+    font-weight: 900;
+    width: 50%;
+}
+#label input:focus{
+    outline: none;
+}
+#label input{
+    width: 100%;
+    background-color: white;
+    border: none;
+    padding: 2% 5%;
+}
+#dialog-box button{
+    background-color: #003268;
+    width: fit-content;
+    padding: 2% 8%;
+}
 @media only screen and (max-width: 768px) {
     #pg1-container h2{
         font-size: 3vh;
@@ -200,5 +261,12 @@ button:hover {
     select{
         font-size:1vh;
         font-weight: 400;
+    }
+    #dialog-box h2{
+        font-size: 3vh;
+    }
+    #dialog-box{
+        height: 40vh;
+        width: 80vw;
     }
 }
