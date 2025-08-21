@@ -188,6 +188,7 @@ button:hover {
         
     }
     #header{
+        margin-top: 1vh;
         gap: 2vh;
     }
     #header h1{
