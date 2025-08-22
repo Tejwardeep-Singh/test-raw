@@ -21,7 +21,7 @@
                 </div>
             </div>
             <div id="pg1-container">
-                <h2>Manage Panel</h2>
+                <h2>Room Allotment</h2>
                 <h3>Teacher data</h3>
                 <table>
                     <thead>
@@ -35,7 +35,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
+                        <!-- <tr>
                             <td>1</td>
                             <td>SANTOKH SINGH</td>
                             <td>xxxxx-xxxxx</td>
@@ -130,7 +130,7 @@
                                     <option value="law">LAW</option>
                                 </select>
                             </td>
-                        </tr>
+                        </tr> -->
                     </tbody>
                 </table>
                 <div id="forms">
@@ -144,15 +144,14 @@
                         <h4 id="addTeacher"><i class="fa-solid fa-user-plus"></i> Add Teacher</h4>
                     </div>
                     <div class="form-right">
-                        <form action="">
-                            <button type="submit"><i class="fa-solid fa-trash"></i> Clear</button>
-                        </form>
+                        <h4 id="clear"><i class="fa-solid fa-trash"></i> Clear</h4>
                     </div>
                 </div>
             </div>
         </div>
         <div id="dialog-box">
             <h2>Enter Details</h2>
+            <i class="fa-solid fa-xmark"></i>
             <form action="" method="post">
                 <div id="label">
                     <label for="name">Name:</label>
@@ -165,6 +164,7 @@
                 <div id="label">
                     <label for="dept">Department:</label>
                     <select name="dept" id="dept">
+                        <option value="select">select</option>
                         <option value="cse">CSE</option>
                         <option value="civil">Civil</option>
                         <option value="law">Law</option>
@@ -173,6 +173,13 @@
                 </div>
                 <button>Submit</button>
             </form>
+        </div>
+        <div id="confirm-box">
+            <p>Do you really want to delete the data ?😟</p>
+            <div id="buttons">
+                <h4 id="yes">Yes</h4>
+                <h4 id="no">No</h4>
+            </div>
         </div>
     </main>
 

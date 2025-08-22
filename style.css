@@ -15,6 +15,25 @@ main{
     overflow-x: hidden;
     position: relative;
 }
+body.dark {
+  background: #222;
+  color: #fff;
+}
+body.dark table {
+  background: #222;
+  color: #fff;
+}
+
+body.dark td, body.dark th,body.dark select {
+  border-color: #111;
+  color:#dadada
+}
+body.dark #pg1-container h2,body.dark #pg1-container h3,body.dark #header h1,body.dark #header h3{
+    color:#dadada
+}
+body.dark #label,body.dark #label select{
+    color:#111
+}
 #mode{
     position: absolute;
     top: 1%;
@@ -114,10 +133,7 @@ option{
     align-items: center;
     justify-content: flex-end;
 }
-.form-right button{
-    background-color: rgb(255, 31, 31);
-}
-form button,#addTeacher {
+form button,#addTeacher,#clear {
     height: fit-content;
     width: fit-content;
     background-color:#007bff;
@@ -130,8 +146,63 @@ form button,#addTeacher {
     padding: 8px 10px;
     font-weight: 900
 }
+#clear{
+    background-color: rgb(255, 45, 45);
+}
 button:hover {
   background-color:#003268;
+}
+#addTeacher:hover{
+    background-color:#003268;
+}
+#clear:hover{
+    background-color: rgb(190, 0, 0);
+}
+#confirm-box{
+    height:fit-content;
+    width:fit-content;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: #444;
+    border-radius: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    padding:5%;
+    transform: translate(-50%, -50%);
+    gap: 5vh;
+}
+#buttons{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content:space-around;
+}
+#buttons h4{
+    font-size: 3vh;
+    font-weight: 900;
+    padding: 1% 4%;
+    border-radius: 10px;
+    width: fit-content;
+    cursor: pointer;
+    animation: 1s all ease-in; 
+}
+#buttons h4:hover{
+    transform: scale(1.1);
+}
+#yes{
+    background-color: red;
+}
+#no{
+    background-color: green;
+}
+#confirm-box p{
+    font-size: 4vh;
+    font-weight: 800;
+    color: white;
 }
 #header{
     height: auto;
@@ -196,6 +267,14 @@ button:hover {
     gap: 4vh;
     flex-direction: column;
 }
+#dialog-box i{
+    position: absolute;
+    right:3%;
+    top: 3%;
+    font-weight: 900;
+    font-size: 3vh;
+    cursor: pointer;
+}
 #dialog-box h2{
     font-weight: 900;
     font-family: Arial, Helvetica, sans-serif;
@@ -231,7 +310,10 @@ button:hover {
 #dialog-box button{
     background-color: #003268;
     width: fit-content;
-    padding: 2% 8%;
+    padding: 3% 20%;
+    box-shadow: 5px 5px 5px 2px #007bff;
+    font-weight: 900;
+    font-size: 2vh;
 }
 @media only screen and (max-width: 768px) {
     #pg1-container h2{
@@ -243,11 +325,14 @@ button:hover {
     th,td{
         font-size: 1vh;
     }
-    form button,#addTeacher {
+    form button,#addTeacher,#clear {
         font-size: 8px;
         padding: 6px 6px;
         margin: 10px auto;
         
+    }
+    #clear{
+        padding: 6px 10px;
     }
     #header{
         margin-top: 1vh;
@@ -271,6 +356,18 @@ button:hover {
         width: 80vw;
     }
     #dialog-box button{
-        padding:4px 10px;
+        padding:3% 10%;
+    }
+    #confirm-box{
+        width: 80vw;
+        padding: 4% 5%;
+        top: 40%;
+    }
+    #confirm-box p{
+        font-size: 2vh;
+    }
+    #buttons h4{
+        font-size: 2vh;
+        padding: 2% 5%;
     }
 }
