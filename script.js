@@ -12,7 +12,7 @@ function mode()
             gsap.to("td,#pg1-container h2,#pg1-container h3,#header h1,#header h3,select",{
                 color:"#dadada"
             });
-gsap.to("#dialog-box input",{
+gsap.to("#label",{
 color:"#111"
 });
             mode.innerHTML="🌑";
