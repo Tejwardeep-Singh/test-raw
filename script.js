@@ -9,12 +9,10 @@ function mode()
             backgroundColor:"#222",
             color:"#dadada"
             });
-            gsap.to("td,#pg1-container h2,#pg1-container h3,#header h1,#header h3,select",{
+            gsap.to("td,#pg1-container h2,#pg1-container h3,#header h1,#header h3,#pg1-container select",{
                 color:"#dadada"
             });
-gsap.to("#label",{
-color:"#111"
-});
+
             mode.innerHTML="🌑";
             toggle=1;
         }
@@ -23,7 +21,7 @@ color:"#111"
             backgroundColor:"#dadada",
             color:"#111"
             });
-            gsap.to("td,#pg1-container h2,#pg1-container h3,#header h1,#header h3,select",{
+            gsap.to("td,#pg1-container h2,#pg1-container h3,#header h1,#header h3,#pg1- container select",{
                 color:"#111"
             });
             mode.innerHTML="☀️";
