@@ -326,7 +326,7 @@ button:hover {
         font-size: 1vh;
     }
     form button,#addTeacher,#clear {
-        font-size: 8px;
+        font-size: 6px;
         padding: 6px 6px;
         margin: 10px auto;
         

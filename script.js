@@ -94,16 +94,7 @@ function teacher() {
               <option value="ns2">N-S2</option>
             </select>
           </td>
-          <td>${t.dept.toUpperCase()}</td>
-          <td>
-            <select>
-              <option value="select">Select</option>
-              <option value="newton">Newton</option>
-              <option value="einstein">Einstein</option>
-              <option value="pharma">Pharma</option>
-              <option value="law">Law</option>
-            </select>
-          </td>
+          <td>${t.dept.toUpperCase()}</td>    
         </tr>
       `;
       tableBody.innerHTML += row;
