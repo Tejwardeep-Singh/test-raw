@@ -12,7 +12,9 @@ function mode()
             gsap.to("td,#pg1-container h2,#pg1-container h3,#header h1,#header h3,#pg1-container select",{
                 color:"#dadada"
             });
-
+gsap.to("#label",{
+color:"#111"
+});
             mode.innerHTML="🌑";
             toggle=1;
         }
