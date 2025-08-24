@@ -31,7 +31,9 @@ body.dark td, body.dark th,body.dark select {
 body.dark #pg1-container h2,body.dark #pg1-container h3,body.dark #header h1,body.dark #header h3{
     color:#dadada
 }
-
+body.dark #dialog-box{
+    box-shadow: -5px 5px 15px 1px black ;
+}
 #mode{
     position: absolute;
     top: 1%;
@@ -254,9 +256,11 @@ button:hover {
     left: 50%;
     top: 50%;
     transform: translate(-50%,-50%);
-    display:flex;
+    overflow: hidden;
+    display:none;
 }
 #dialog-box form{
+    margin-top: 15%;
     height: auto;
     width: 100%;
     display: flex;
@@ -267,20 +271,29 @@ button:hover {
 }
 #dialog-box i{
     position: absolute;
-    right:3%;
-    top: 3%;
+    right:1%;
+    top: 1%;
     font-weight: 900;
     font-size: 3vh;
     cursor: pointer;
-    color:#007bff;
+    color:white;
+    text-shadow: 10px 5px 12px #003268;
+    z-index: 999;
 }
 #dialog-box h2{
     font-weight: 900;
-    font-family: Arial, Helvetica, sans-serif;
-    color: #111;
-    -webkit-text-stroke: 1.5px #111;
-    text-shadow: 4px 2px 10px #007bff;
-    font-size: 6vh;
+    font-family: Arial, sans-serif;
+    color: white;
+    text-shadow: -5px 5px 15px #111;
+    width: 100%;
+    background-color: #007bff;
+    font-size: 5vh;
+    position: absolute;
+    left: 0;
+    top: 0;
+    text-align: center;
+    z-index: 998;
+    padding: 1%;
 }
 #label{
     height: fit-content;
@@ -315,12 +328,17 @@ button:hover {
     text-align: center;
 }
 #dialog-box button{
-    background-color: #003268;
+    background-color: #007bff;
     width: fit-content;
     padding: 3% 20%;
-    box-shadow: 5px 5px 5px 2px #007bff;
+    box-shadow: 5px 5px 15px 2px #007bff;
     font-weight: 900;
     font-size: 2vh;
+    transition: 0.1s all ease-in;
+    color: white;
+}
+#dialog-box button:hover{
+    background-color: #003268;
 }
 @media only screen and (max-width: 768px) {
     #pg1-container h2{
@@ -339,7 +357,7 @@ button:hover {
         
     }
     #clear{
-        padding: 6px 10 px;
+        padding: 6px 10px;
     }
     #header{
         margin-top: 1vh;
@@ -358,9 +376,15 @@ button:hover {
     #dialog-box h2{
         font-size: 3vh;
     }
+    #dialog-box i{
+        font-size: 1.5vh;
+    }
     #dialog-box{
         height: 40vh;
         width: 80vw;
+    }
+    #label label,#label input,#label select{
+        font-size: 1.5vh;
     }
     #dialog-box button{
         padding:3% 10%;
