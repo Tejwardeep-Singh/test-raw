@@ -340,6 +340,14 @@ button:hover {
 #dialog-box button:hover{
     background-color: #003268;
 }
+table th:nth-child(1){
+    width: 10vw;
+    text-align: center;
+}
+table td:nth-child(1){
+    width: 10vw;
+    text-align: center;
+}
 @media only screen and (max-width: 768px) {
     #pg1-container h2{
         font-size: 3vh;
@@ -375,9 +383,12 @@ button:hover {
     }
     #dialog-box h2{
         font-size: 3vh;
+        padding: 2% 0;
     }
     #dialog-box i{
         font-size: 1.5vh;
+        top: 2%;
+        right: 2%;
     }
     #dialog-box{
         height: 40vh;
