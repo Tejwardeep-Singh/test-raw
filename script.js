@@ -33,6 +33,7 @@ function toggle()
       })
     })
 }
+toggle();
 function deleteTeacher(){
   var clear=document.querySelector("#clear");
   clear.addEventListener("click",function(){
@@ -56,8 +57,6 @@ function deleteTeacher(){
   })
 }
 deleteTeacher();
-toggle();
-
 function teacher() {
   // Load teachers from localStorage (if available), otherwise default list
   let teachers = JSON.parse(localStorage.getItem("teachers")) || [
