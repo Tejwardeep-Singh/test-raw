@@ -158,7 +158,7 @@ button:hover {
 #clear:hover{
     background-color: rgb(190, 0, 0);
 }
-#confirm-box{
+.confirm-box{
     height:fit-content;
     width:fit-content;
     display: none;
@@ -174,14 +174,14 @@ button:hover {
     transform: translate(-50%, -50%);
     gap: 5vh;
 }
-#buttons{
+.buttons{
     height: 100%;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content:space-around;
 }
-#buttons h4{
+.buttons h4{
     font-size: 3vh;
     font-weight: 900;
     padding: 1% 4%;
@@ -190,16 +190,16 @@ button:hover {
     cursor: pointer;
     animation: 1s all ease-in; 
 }
-#buttons h4:hover{
+.buttons h4:hover{
     transform: scale(1.1);
 }
-#yes{
+.yes{
     background-color: red;
 }
-#no{
+.no{
     background-color: green;
 }
-#confirm-box p{
+.confirm-box p{
     font-size: 4vh;
     font-weight: 800;
     color: white;
@@ -384,6 +384,9 @@ table td:nth-child(1){
 .navlink:hover{
     transform:scale(1.02);
 }
+#super{
+    margin-top: 5vh;
+}
 @media only screen and (max-width: 768px) {
     #pg1-container h2{
         font-size: 3vh;
@@ -392,7 +395,7 @@ table td:nth-child(1){
         font-size: 1vh;
     }
     th,td{
-        font-size: 1vh;
+        font-size: 0.8vh;
     }
     form button,#addTeacher,#clear {
         font-size: 6px;
@@ -414,7 +417,7 @@ table td:nth-child(1){
         padding-top: 0;
     }
     select{
-        font-size:1vh;
+        font-size:0.8vh;
         font-weight: 400;
     }
     #dialog-box h2{
@@ -436,12 +439,12 @@ table td:nth-child(1){
     #dialog-box button{
         padding:3% 10%;
     }
-    #confirm-box{
+    .confirm-box{
         width: 80vw;
         padding: 4% 5%;
         top: 40%;
     }
-    #confirm-box p{
+    .confirm-box p{
         font-size: 2vh;
     }
     #buttons h4{

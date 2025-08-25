@@ -34,29 +34,6 @@ function toggle()
     })
 }
 toggle();
-function deleteTeacher(){
-  var clear=document.querySelector("#clear");
-  clear.addEventListener("click",function(){
-    gsap.to("#confirm-box",{
-      display:"flex"
-    })
-  })
-  var yes=document.querySelector("#yes");
-  yes.addEventListener("click",function(){
-    const tbody = document.querySelector("tbody");
-    tbody.innerHTML = "";
-    gsap.to("#confirm-box",{
-      display:"none"
-    })
-  })
-  var no=document.querySelector("#no");
-  no.addEventListener("click",function(){
-    gsap.to("#confirm-box",{
-      display:"none"
-    })
-  })
-}
-deleteTeacher();
 function teacher() {
   // Load teachers from localStorage (if available), otherwise default list
   let teachers = JSON.parse(localStorage.getItem("teachers")) || [
@@ -76,7 +53,8 @@ function teacher() {
 
   // Render the table from array
   function renderTable() {
-    tableBody.innerHTML = "";
+    var teacher=document.querySelector("#teacherTable tbody");
+    teacher.innerHTML = "";
 
     teachers.forEach((t, i) => {
       const row = `
@@ -93,10 +71,18 @@ function teacher() {
               <option value="ns2">N-S2</option>
             </select>
           </td>
-          <td>${t.dept.toUpperCase()}</td>    
+          <td>
+            <select>
+              <option value="select">Select</option>
+              <option value="morning">Morning</option>
+              <option value="evening">Evening</option>
+            </select>
+          </td>
+          <td>${t.dept.toUpperCase()}</td>
+          <td><input type="radio" name='radio' class='radio'></td>    
         </tr>
       `;
-      tableBody.innerHTML += row;
+      teacher.innerHTML += row;
     });
   }
 
@@ -111,7 +97,7 @@ function teacher() {
     const dept = document.getElementById("dept").value;
 
     teachers.push({ name, mobile, dept });
-    saveTeachers();  // ✅ Save to localStorage
+    saveTeachers();
     renderTable();
     form.reset();
   });
@@ -120,3 +106,49 @@ function teacher() {
   renderTable();
 }
 teacher();
+function deleteTeacher(){
+  var clear=document.querySelector("#clear");
+  clear.addEventListener("click",function(){
+    gsap.to("#confirm-box1",{
+      display:"flex"
+    })
+  })
+  var yes=document.querySelector("#yes1");
+  yes.addEventListener("click",function(){
+    const tbody = document.querySelector("tbody");
+    tbody.innerHTML = "";
+    gsap.to("#confirm-box1",{
+      display:"none"
+    })
+  })
+  var no=document.querySelector("#no1");
+  no.addEventListener("click",function(){
+    gsap.to("#confirm-box1",{
+      display:"none"
+    })
+  })
+}
+deleteTeacher()
+function superintendent(){
+  var radios= document.querySelectorAll(".radio");
+  radios.forEach(function(elem){
+    elem.addEventListener("click",function(){
+      gsap.to("#confirm-box2",{
+        display:"flex"
+      })
+      var yes=document.querySelector("#yes2");
+      yes.addEventListener("click",function(){
+        gsap.to("#confirm-box2",{
+          display:"none"
+        })
+      })
+      var no=document.querySelector("#no2");
+      no.addEventListener("click",function(){
+        gsap.to("#confirm-box2",{
+          display:"none"
+        })
+      })
+    })
+  })
+}
+superintendent();
