@@ -180,6 +180,14 @@ function teacher() {
         saveTeachers();
         renderTable();
       }
+    } else if(target.closest && target.closest('.delete-teacher')){
+      const btn = target.closest('.delete-teacher');
+      const idx = parseInt(btn.getAttribute('data-index'), 10);
+      if(!isNaN(idx)){
+        teachers.splice(idx, 1);
+        saveTeachers();
+        renderTable();
+      }
     }
   });
 
@@ -213,6 +221,15 @@ function teacher() {
       const target = e.target;
       if(target && target.classList && target.classList.contains('delete-super')){
         const idx = parseInt(target.getAttribute('data-index'), 10);
+        const supers = getSupers();
+        if(!isNaN(idx) && idx >= 0 && idx < supers.length){
+          supers.splice(idx, 1);
+          saveSupers(supers);
+          renderSuperTable();
+        }
+      } else if(target.closest && target.closest('.delete-super')){
+        const btn = target.closest('.delete-super');
+        const idx = parseInt(btn.getAttribute('data-index'), 10);
         const supers = getSupers();
         if(!isNaN(idx) && idx >= 0 && idx < supers.length){
           supers.splice(idx, 1);
@@ -290,8 +307,8 @@ updateSuperLinkState();
 
 // Fast delete buttons (no dialog)
 (function fastDeleteHook(){
-  var deleteTeachersBtn = document.querySelector('#deleteTeachers');
-  var deleteSupersBtn = document.querySelector('#deleteSupers');
+  var deleteTeachersBtn = document.querySelector('#deleteTeachers h4');
+  var deleteSupersBtn = document.querySelector('#deleteSupers h4');
   if(deleteTeachersBtn){
     deleteTeachersBtn.addEventListener('click', function(){
       localStorage.setItem('teachers', JSON.stringify([]));
