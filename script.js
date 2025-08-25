@@ -306,29 +306,30 @@ var clear=document.querySelector("#clear2");
   if(!clear){ return; }
   clear.addEventListener("click",function(){
     if(window.gsap){
-      gsap.to("#confirm-box1",{
+      gsap.to("#confirm-box3",{
         display:"flex"
       })
     }
   })
-  var yes=document.querySelector("#yes1");
+  var yes=document.querySelector("#yes3");
   if(yes){
     yes.addEventListener("click",function(){
       const tbody = document.querySelector("#superTable tbody");
       if(tbody){ tbody.innerHTML = ""; }
       localStorage.setItem("superintendents", JSON.stringify([]));
+      updateSuperLinkState();
       if(window.gsap){
-        gsap.to("#confirm-box1",{
+        gsap.to("#confirm-box3",{
           display:"none"
         })
       }
     })
   }
-  var no=document.querySelector("#no1");
+  var no=document.querySelector("#no3");
   if(no){
     no.addEventListener("click",function(){
       if(window.gsap){
-        gsap.to("#confirm-box1",{
+        gsap.to("#confirm-box3",{
           display:"none"
         })
       }
@@ -462,3 +463,15 @@ superintendent();
     superBtn.addEventListener('click', exportSupersStructured);
   }
 })();
+
+// Add the missing updateSuperLinkState function
+function updateSuperLinkState(){
+  var superLink = document.querySelector("#superintendent");
+  if(!superLink) return;
+  var supers = JSON.parse(localStorage.getItem("superintendents")) || [];
+  if(supers.length === 0){
+    superLink.classList.add("disabled");
+  } else {
+    superLink.classList.remove("disabled");
+  }
+}
