@@ -117,6 +117,20 @@ function teacher() {
     if(!superTbody) return;
     const supers = getSupers();
     superTbody.innerHTML = "";
+    
+    if(supers.length === 0) {
+      // Show "no data" message with sad emoji when table is empty
+      const noDataRow = `
+        <tr>
+          <td colspan="7" style="text-align: center; padding: 40px; font-size: 18px; color: #666;">
+            No data here 😢
+          </td>
+        </tr>
+      `;
+      superTbody.innerHTML = noDataRow;
+      return;
+    }
+    
     supers.forEach((s, i) => {
       const row = `
         <tr>
@@ -330,6 +344,7 @@ superintendent();
 // Index page: toggle superintendent link enabled/disabled
 function updateSuperLinkState(){
   var superLink = document.querySelector("#superintendent");
+  var superTable=document.querySelector("#superTable tbody");
   if(!superLink) return;
   var supers = JSON.parse(localStorage.getItem("superintendents")) || [];
   if(supers.length === 0){
