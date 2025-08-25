@@ -141,7 +141,7 @@ option{
     align-items: center;
     justify-content: flex-end;
 }
-form button,#addTeacher,#clear {
+form button,#addTeacher,#clear,#clear2{
     height: fit-content;
     width: fit-content;
     background-color:#007bff;
@@ -157,6 +157,9 @@ form button,#addTeacher,#clear {
 #clear{
     background-color: rgb(255, 45, 45);
 }
+#clear2{
+    background-color: rgb(255, 45, 45);
+}
 button:hover {
   background-color:#003268;
 }
@@ -165,6 +168,13 @@ button:hover {
 }
 #clear:hover{
     background-color: rgb(190, 0, 0);
+}
+#clear2:hover{
+    background-color: rgb(190, 0, 0);
+}
+#superForm{
+    width: 100%;
+    justify-content: space-between;
 }
 .confirm-box{
     height:fit-content;

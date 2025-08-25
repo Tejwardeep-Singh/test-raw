@@ -287,6 +287,41 @@ function deleteTeacher(){
   }
 }
 deleteTeacher()
+function deleteSuper(){
+var clear=document.querySelector("#clear2");
+  if(!clear){ return; }
+  clear.addEventListener("click",function(){
+    if(window.gsap){
+      gsap.to("#confirm-box1",{
+        display:"flex"
+      })
+    }
+  })
+  var yes=document.querySelector("#yes1");
+  if(yes){
+    yes.addEventListener("click",function(){
+      const tbody = document.querySelector("#superTable tbody");
+      if(tbody){ tbody.innerHTML = ""; }
+      localStorage.setItem("superintendents", JSON.stringify([]));
+      if(window.gsap){
+        gsap.to("#confirm-box1",{
+          display:"none"
+        })
+      }
+    })
+  }
+  var no=document.querySelector("#no1");
+  if(no){
+    no.addEventListener("click",function(){
+      if(window.gsap){
+        gsap.to("#confirm-box1",{
+          display:"none"
+        })
+      }
+    })
+  }
+}
+deleteSuper()
 function superintendent(){
   // kept for backward compatibility; logic handled inside teacher()
 }
