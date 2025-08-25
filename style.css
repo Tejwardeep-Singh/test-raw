@@ -79,6 +79,14 @@ table{
     border-collapse: collapse;
     table-layout: fixed;
 }
+button.delete-teacher, button.delete-super{
+    background-color: transparent;
+    color: white;
+    border: none;
+    padding: 4px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+}
 thead{
     height:fit-content;
     width: 100%;
@@ -198,6 +206,12 @@ button:hover {
 }
 .no{
     background-color: green;
+}
+#yes2{
+    background-color: green;
+}
+#no2{
+    background-color: red;
 }
 .confirm-box p{
     font-size: 4vh;
@@ -341,12 +355,94 @@ button:hover {
     background-color: #003268;
 }
 table th:nth-child(1){
-    width: 10vw;
+    width: 5vw;
     text-align: center;
 }
 table td:nth-child(1){
-    width: 10vw;
+    width:5vw;
     text-align: center;
+}
+table th:nth-child(7){
+    width: 5vw;
+    text-align: center;
+}
+table td:nth-child(7){
+    width:5vw;
+    text-align: center;
+}
+table th:nth-child(8){
+    width: 8vw;
+    text-align: center;
+}
+table td:nth-child(8){
+    width:8vw;
+    text-align: center;
+}
+#dialog-box2{
+    height: 50vh;
+    width:fit-content;
+    padding: 1% 5%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    background-color:white;    
+    box-shadow: -5px 5px 15px 1px #111 ;
+    border-radius: 10px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    overflow: hidden;
+    display:flex;
+    border: none;
+}
+#dialog-box2 form{
+    margin-top: 15%;
+    height: auto;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4vh;
+    flex-direction: column;
+}
+#dialog-box2 i{
+    position: absolute;
+    right:2%;
+    top: 3%;
+    font-weight: 900;
+    font-size: 3.5vh;
+    cursor: pointer;
+    color:white;
+    text-shadow: 10px 5px 12px #003268;
+    z-index: 999;
+}
+#dialog-box2 h2{
+    font-weight: 900;
+    font-family: Arial, sans-serif;
+    color: white;
+    text-shadow: -5px 5px 15px #111;
+    width: 100%;
+    background-color: #007bff;
+    font-size: 3.5vh;
+    position: absolute;
+    left: 0;
+    top: 0;
+    text-align: center;
+    z-index: 998;
+    padding: 2%;
+}
+#dialog-box2 button{
+    background-color: #007bff;
+    width: fit-content;
+    padding: 3% 20%;
+    font-weight: 900;
+    font-size: 2vh;
+    transition: 0.1s all ease-in;
+    color: white;
+}
+#dialog-box2 button:hover{
+    background-color: #003268;
 }
 .navlinks{
     height: fit-content;
@@ -375,6 +471,11 @@ table td:nth-child(1){
 .navlinks a{
     text-decoration: none;
 }
+.navlinks a.disabled{
+    pointer-events: none;
+    opacity: 0.5;
+    filter: grayscale(1);
+}
 .navlink h4{
     font-size: 3vh;
     font-family: Arial, sans-serif;
@@ -394,14 +495,16 @@ table td:nth-child(1){
     #pg1-container h3{
         font-size: 1vh;
     }
+    table{
+        width: 95vw;
+    }
     th,td{
-        font-size: 0.8vh;
+        font-size: 0.6vh;
     }
     form button,#addTeacher,#clear {
         font-size: 6px;
         padding: 6px 6px;
-        margin: 10px auto;
-        
+        margin: 10px auto;  
     }
     #clear{
         padding: 6px 10px;
@@ -448,7 +551,7 @@ table td:nth-child(1){
         font-size: 2vh;
     }
     #buttons h4{
-        font-size: 2vh;
+        font-size: 2.5vh;
         padding: 2% 5%;
     }
     .navlinks{
@@ -460,5 +563,17 @@ table td:nth-child(1){
     }
     .navlink h4{
         font-size: 2vh;
+    }
+    .delete-teacher h4,.delete-super h4{
+        font-size: 1vh;
+    }
+    .radio{
+        transform: scale(0.7);
+    }
+    #superTable th{
+        width: 5vw;
+    }
+    #teacherTable th{
+        width: 5vw;
     }
 }

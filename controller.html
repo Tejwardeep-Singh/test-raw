@@ -33,6 +33,7 @@
                             <th>Shift</th>
                             <th>Department</th>
                             <th>Role</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -137,7 +138,7 @@
                 <div id="forms">
                     <div class="form-left">
                         <form action="">
-                        <button type="submit"><i class="fa-solid fa-download"></i> Download Plan</button>
+                        <button type="submit" id="exportTeachers"><i class="fa-solid fa-download"></i> Download Plan</button>
                         </form>  
                         <form action="">
                             <button type="submit"> <i class="fa-solid fa-upload"></i> Upload Plan</button>
@@ -158,15 +159,21 @@
                             <th>S.no</th>
                             <th>Teacher Name</th>
                             <th>Mobile</th>
-                            <th>Room Number</th>
-                            <th>Shift</th>
                             <th>Department</th>
+                            <th>ID</th>
+                            <th>Password</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         
                     </tbody>
                 </table>
+                <div class="form-left">
+                    <form action="">
+                        <button type="submit" id="exportSupers"><i class="fa-solid fa-download"></i> Download Plan</button>
+                    </form>
+                </div>
             </div>
         </div>
         <dialog id="dialog-box">
@@ -198,7 +205,7 @@
             <p>Do you really want to delete the data ?😟</p>
             <div class="buttons">
                 <h4 id="yes1" class="yes">Yes</h4>
-                <h4 id="no2" class="no">No</h4>
+                <h4 id="no1" class="no">No</h4>
             </div>
         </div>
         <div class="confirm-box" id="confirm-box2">
@@ -212,6 +219,8 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js" integrity="sha512-NcZdtrT77bJr4STcmsGAESr06BYGE8woZdSdEgqnpyqac7sugNO+Tr4bGwGF3MsnEkGKhU2KL2xh6Ec+BqsaHA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js" integrity="sha512-P2IDYZfqSwjcSjX0BKeNhwRUH8zRPGlgcWl5n6gBLzdi4Y5/0O4zaXrtO4K9TZK6Hn1BenYpKowuCavNandERg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
