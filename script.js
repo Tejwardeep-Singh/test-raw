@@ -337,14 +337,7 @@ var clear=document.querySelector("#clear2");
 }
 deleteSuper()
 function superintendent(){
-  // kept for backward compatibility; logic handled inside teacher()
-}
-superintendent();
-
-// Index page: toggle superintendent link enabled/disabled
-function updateSuperLinkState(){
   var superLink = document.querySelector("#superintendent");
-  var superTable=document.querySelector("#superTable tbody");
   if(!superLink) return;
   var supers = JSON.parse(localStorage.getItem("superintendents")) || [];
   if(supers.length === 0){
@@ -353,9 +346,8 @@ function updateSuperLinkState(){
     superLink.classList.remove("disabled");
   }
 }
-updateSuperLinkState();
+superintendent();
 
-// Fast delete buttons (no dialog)
 (function fastDeleteHook(){
   var deleteTeachersBtn = document.querySelector('#deleteTeachers h4');
   var deleteSupersBtn = document.querySelector('#deleteSupers h4');
@@ -386,7 +378,6 @@ updateSuperLinkState();
     if(!table || !window.jspdf || !window.jspdf.jsPDF) return;
     var doc = new window.jspdf.jsPDF({orientation: 'landscape', unit: 'pt', format: 'a4'});
 
-    // Add heading
     doc.setFontSize(18);
     doc.text("Global Group Of Institutes", doc.internal.pageSize.getWidth() / 2, 40, { align: "center" });
     doc.setFontSize(14);
@@ -426,7 +417,6 @@ updateSuperLinkState();
     if(!table || !window.jspdf || !window.jspdf.jsPDF) return;
     var doc = new window.jspdf.jsPDF({orientation: 'landscape', unit: 'pt', format: 'a4'});
 
-    // Add heading
     doc.setFontSize(18);
     doc.text("Global Group Of Institutes", doc.internal.pageSize.getWidth() / 2, 40, { align: "center" });
     doc.setFontSize(14);
@@ -458,16 +448,13 @@ updateSuperLinkState();
     }
     doc.save('superintendents.pdf');
   }
-
-  // ✅ Helper to extract text correctly (fixes <select>)
   function getCellText(td){
     var select = td.querySelector("select");
     if(select){
-      return select.options[select.selectedIndex].text.trim(); // only selected option
+      return select.options[select.selectedIndex].text.trim();
     }
     return td.textContent.trim();
   }
-
   if(teacherBtn){
     teacherBtn.addEventListener('click', exportTeachersStructured);
   }
