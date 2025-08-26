@@ -292,8 +292,12 @@ function deleteTeacher(){
   if(yes){
     yes.addEventListener("click",function(){
       const tbody = document.querySelector("#teacherTable tbody");
-      if(tbody){ tbody.innerHTML = ""; }
+      if(tbody){
+        var noDataRow = '\n        <tr>\n          <td colspan="8" style="text-align: center; padding: 40px; font-size: 18px; color: #666;">\n            No data here 😢\n          </td>\n        </tr>\n      ';
+        tbody.innerHTML = noDataRow;
+      }
       localStorage.setItem("teachers", JSON.stringify([]));
+      
       if(window.gsap){
         gsap.to("#confirm-box1",{
           display:"none"
@@ -327,7 +331,10 @@ var clear=document.querySelector("#clear2");
   if(yes){
     yes.addEventListener("click",function(){
       const tbody = document.querySelector("#superTable tbody");
-      if(tbody){ tbody.innerHTML = ""; }
+      if(tbody){
+        var noDataRow = '\n        <tr>\n          <td colspan="7" style="text-align: center; padding: 40px; font-size: 18px; color: #666;">\n            No data here 😢\n          </td>\n        </tr>\n      ';
+        tbody.innerHTML = noDataRow;
+      }
       localStorage.setItem("superintendents", JSON.stringify([]));
       updateSuperLinkState();
       if(window.gsap){
@@ -421,6 +428,16 @@ function superintendent(){
   updateSuperLinkState();
 }
 superintendent();
+
+(function bindSuperLinkAutoUpdate(){
+  var superLink = document.querySelector('#superintendent');
+  if(!superLink) return;
+  function refresh(){ updateSuperLinkState(); }
+  window.addEventListener('storage', refresh);
+  document.addEventListener('visibilitychange', function(){ if(document.visibilityState === 'visible'){ refresh(); } });
+  window.addEventListener('focus', refresh);
+  window.addEventListener('pageshow', refresh);
+})();
 
 (function fastDeleteHook(){
   var pending = null;
@@ -582,10 +599,16 @@ function superLogin(){
        var btn = document.querySelector('#superLoginBtn');
        function doLogin(e){
          if(e){ e.preventDefault(); }
-         var id = (document.querySelector('#id')||{}).value || '';
-         var pwd = (document.querySelector('#password')||{}).value || '';
+         var idRaw = (document.querySelector('#id')||{}).value || '';
+         var pwdRaw = (document.querySelector('#password')||{}).value || '';
+         var id = String(idRaw).trim().toUpperCase();
+         var pwd = String(pwdRaw).trim();
          var supers = JSON.parse(localStorage.getItem('superintendents')) || [];
-         var found = supers.find(function(s){ return (s.id===id && s.password===pwd); });
+         var found = supers.find(function(s){
+           var sid = (s && s.id) ? String(s.id).trim().toUpperCase() : '';
+           var spw = (s && s.password) ? String(s.password).trim() : '';
+           return (sid===id && spw===pwd);
+         });
          if(found){
            localStorage.setItem('super_session', JSON.stringify({ id: found.id, name: found.name, ts: Date.now() }));
            window.location.href = 'superintendent.html';
