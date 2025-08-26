@@ -53,10 +53,9 @@ function teacher() {
   const form = document.querySelector("#dialog-box form");
 
   if(!teachersTbody){
-    return; // not on controller page
+    return; 
   }
 
-  // Save teachers to localStorage
   function saveTeachers() {
     localStorage.setItem("teachers", JSON.stringify(teachers));
   }
@@ -82,7 +81,19 @@ function teacher() {
   function renderTable() {
     teachersTbody.innerHTML = "";
 
-    teachers.forEach((t, i) => {
+    if(teachers.length === 0) {
+      const noDataRow = `
+        <tr>
+          <td colspan="8" style="text-align: center; padding: 40px; font-size: 18px; color: #666;">
+            No data here 😢
+          </td>
+        </tr>
+      `;
+      teachersTbody.innerHTML = noDataRow;
+      return;
+    }
+    else{
+      teachers.forEach((t, i) => {
       const row = `
         <tr>
           <td>${i + 1}</td>
@@ -111,6 +122,7 @@ function teacher() {
       `;
       teachersTbody.innerHTML += row;
     });
+    }
   }
 
   function renderSuperTable(){
