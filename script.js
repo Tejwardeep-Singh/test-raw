@@ -94,39 +94,40 @@ function teacher() {
         </tr>
       `;
       teachersTbody.innerHTML = noDataRow;
-      return;
-    }
-    else{
+    } else {
       teachers.forEach((t, i) => {
-      const row = `
-        <tr>
-          <td>${i + 1}</td>
-          <td>${t.name}</td>
-          <td>${t.mobile}</td>
-          <td>
-            <select>
-              <option value="select">Select</option>
-              <option value="nf1">N-F1</option>
-              <option value="nf2">N-F2</option>
-              <option value="ns1">N-S1</option>
-              <option value="ns2">N-S2</option>
-            </select>
-          </td>
-          <td>
-            <select>
-              <option value="select">Select</option>
-              <option value="morning">Morning</option>
-              <option value="evening">Evening</option>
-            </select>
-          </td>
-          <td>${t.dept.toUpperCase()}</td>
-          <td><input type="radio" name='radio' class='radio' data-index='${i}'></td>    
-          <td><button class='delete-teacher' data-index='${i}'><h4>❌</h4></button></td>
-        </tr>
-      `;
-      teachersTbody.innerHTML += row;
-    });
+        const row = `
+          <tr>
+            <td>${i + 1}</td>
+            <td>${t.name}</td>
+            <td>${t.mobile}</td>
+            <td>
+              <select>
+                <option value="select">Select</option>
+                <option value="nf1">N-F1</option>
+                <option value="nf2">N-F2</option>
+                <option value="ns1">N-S1</option>
+                <option value="ns2">N-S2</option>
+              </select>
+            </td>
+            <td>
+              <select>
+                <option value="select">Select</option>
+                <option value="morning">Morning</option>
+                <option value="evening">Evening</option>
+              </select>
+            </td>
+            <td>${t.dept.toUpperCase()}</td>
+            <td><input type="radio" name='radio' class='radio' data-index='${i}'></td>    
+            <td><button class='delete-teacher' data-index='${i}'><h4>❌</h4></button></td>
+          </tr>
+        `;
+        teachersTbody.innerHTML += row;
+      });
     }
+    
+    // Update download button states after rendering
+    updateDownloadButtonStates();
   }
 
   function renderSuperTable(){
@@ -144,23 +145,60 @@ function teacher() {
         </tr>
       `;
       superTbody.innerHTML = noDataRow;
-      return;
+    } else {
+      supers.forEach((s, i) => {
+        const row = `
+          <tr>
+            <td>${i + 1}</td>
+            <td>${s.name}</td>
+            <td>${s.mobile}</td>
+            <td>${s.dept.toUpperCase()}</td>
+            <td>${s.id}</td>
+            <td>${s.password}</td>
+            <td><button class='delete-super' data-index='${i}'><h4>❌</h4></button></td>
+          </tr>
+        `;
+        superTbody.innerHTML += row;
+      });
     }
     
-    supers.forEach((s, i) => {
-      const row = `
-        <tr>
-          <td>${i + 1}</td>
-          <td>${s.name}</td>
-          <td>${s.mobile}</td>
-          <td>${s.dept.toUpperCase()}</td>
-          <td>${s.id}</td>
-          <td>${s.password}</td>
-          <td><button class='delete-super' data-index='${i}'><h4>❌</h4></button></td>
-        </tr>
-      `;
-      superTbody.innerHTML += row;
-    });
+      // Update download button states after rendering
+  updateDownloadButtonStates();
+}
+
+  // Function to update download button states based on table data
+  function updateDownloadButtonStates() {
+    const teacherBtn = document.querySelector('#exportTeachers');
+    const superBtn = document.querySelector('#exportSupers');
+    
+    if (teacherBtn) {
+      if (teachers.length === 0) {
+        teacherBtn.disabled = true;
+        teacherBtn.style.opacity = '0.5';
+        teacherBtn.style.cursor = 'not-allowed';
+        teacherBtn.title = 'No teacher data available to download';
+      } else {
+        teacherBtn.disabled = false;
+        teacherBtn.style.opacity = '1';
+        teacherBtn.style.cursor = 'pointer';
+        teacherBtn.title = 'Download teacher plan';
+      }
+    }
+    
+    if (superBtn) {
+      const supers = getSupers();
+      if (supers.length === 0) {
+        superBtn.disabled = true;
+        superBtn.style.opacity = '0.5';
+        superBtn.style.cursor = 'not-allowed';
+        superBtn.title = 'No superintendent data available to download';
+      } else {
+        superBtn.disabled = false;
+        superBtn.style.opacity = '1';
+        superBtn.style.cursor = 'pointer';
+        superBtn.title = 'Download superintendent plan';
+      }
+    }
   }
 
   // Handle form submission
@@ -179,6 +217,7 @@ function teacher() {
       teachers.push({ name, mobile, dept });
       saveTeachers();
       renderTable();
+      updateDownloadButtonStates();
       form.reset();
     });
   }
@@ -186,6 +225,9 @@ function teacher() {
   // Initial render
   renderTable();
   renderSuperTable();
+  
+  // Check and update download button states
+  updateDownloadButtonStates();
 
   // Handle move to superintendent via confirm box
   var pendingIndex = null;
@@ -237,6 +279,7 @@ function teacher() {
         saveSupers(supers);
         renderTable();
         renderSuperTable();
+        updateDownloadButtonStates(); // Update button states after moving teacher
       }
       pendingIndex = null;
       if(window.gsap && confirmBox){
@@ -299,11 +342,24 @@ function deleteTeacher(){
         tbody.innerHTML = noDataRow;
       }
       localStorage.setItem("teachers", JSON.stringify([]));
+      teachers.length = 0; // Update the local array
       
+      // Close the dialog first
       if(window.gsap){
         gsap.to("#confirm-box1",{
           display:"none"
         })
+        // Use a small delay to ensure dialog closes before updating buttons
+        setTimeout(function() {
+          updateDownloadButtonStates();
+        }, 300);
+      } else {
+        // Fallback if GSAP is not available
+        const confirmBox = document.querySelector("#confirm-box1");
+        if(confirmBox) {
+          confirmBox.style.display = "none";
+        }
+        updateDownloadButtonStates();
       }
     })
   }
@@ -339,10 +395,23 @@ var clear=document.querySelector("#clear2");
       }
       localStorage.setItem("superintendents", JSON.stringify([]));
       updateSuperLinkState();
+      
+      // Close the dialog first
       if(window.gsap){
         gsap.to("#confirm-box3",{
           display:"none"
         })
+        // Use a small delay to ensure dialog closes before updating buttons
+        setTimeout(function() {
+          updateDownloadButtonStates();
+        }, 300);
+      } else {
+        // Fallback if GSAP is not available
+        const confirmBox = document.querySelector("#confirm-box3");
+        if(confirmBox) {
+          confirmBox.style.display = "none";
+        }
+        updateDownloadButtonStates();
       }
     })
   }
@@ -467,6 +536,12 @@ superintendent();
     }
     pending = null;
     hideConfirm();
+    
+    // Update button states before reloading
+    if(typeof updateDownloadButtonStates === 'function'){
+      updateDownloadButtonStates();
+    }
+    
     try { location.reload(); } catch(e) {}
   }
   function onNo(){ pending = null; hideConfirm(); }
@@ -656,3 +731,10 @@ function updateSuperLinkState(){
     superLink.classList.remove("disabled");
   }
 }
+
+// Initialize download button states when page loads
+window.addEventListener('load', function() {
+  if(typeof updateDownloadButtonStates === 'function') {
+    updateDownloadButtonStates();
+  }
+});

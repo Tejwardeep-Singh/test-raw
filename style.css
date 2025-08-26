@@ -75,10 +75,12 @@ body.dark #dialog-box{
 }
 #pg1-container h3{
     width: 100%;
-    text-align: start;
+    text-align: center;
     font-family: Arial, Helvetica, sans-serif;
     font-size:2.5vh;
-    font-weight: 500;
+    font-weight: 600;
+    margin-top: 2%;
+    margin-bottom: 2%;
     color: #111;
 }
 table{
@@ -607,4 +609,38 @@ table td:nth-child(8){
         right: 15%;
         font-size: 2.5vh;
     }
+}
+
+/* Disabled button styles */
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed !important;
+    background-color: #ccc !important;
+    color: #666 !important;
+}
+
+button:disabled:hover {
+    background-color: #ccc !important;
+    color: #666 !important;
+    transform: none !important;
+}
+
+/* Specific styles for download buttons when disabled */
+#exportTeachers:disabled,
+#exportSupers:disabled {
+    background-color: #f5f5f5 !important;
+    color: #999 !important;
+    border-color: #ddd !important;
+}
+
+body.dark button:disabled {
+    background-color: #444 !important;
+    color: #666 !important;
+}
+
+body.dark #exportTeachers:disabled,
+body.dark #exportSupers:disabled {
+    background-color: #333 !important;
+    color: #555 !important;
+    border-color: #555 !important;
 }
