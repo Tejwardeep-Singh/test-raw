@@ -66,7 +66,9 @@ function teacher() {
   }
   function saveSupers(list){
     localStorage.setItem("superintendents", JSON.stringify(list));
-    updateSuperLinkState();
+    if(typeof updateSuperLinkState === 'function'){
+      updateSuperLinkState();
+    }
   }
 
   function generateId(){
@@ -202,17 +204,17 @@ function teacher() {
     } else if(target && target.classList && target.classList.contains('delete-teacher')){
       const idx = parseInt(target.getAttribute('data-index'), 10);
       if(!isNaN(idx)){
-        teachers.splice(idx, 1);
-        saveTeachers();
-        renderTable();
+        window.__pendingDelete = { table: 'teacher', index: idx };
+        const c4 = document.querySelector('#confirm-box4');
+        if(window.gsap && c4){ gsap.to('#confirm-box4',{display:'flex'}) } else if(c4){ c4.style.display = 'flex'; }
       }
     } else if(target.closest && target.closest('.delete-teacher')){
       const btn = target.closest('.delete-teacher');
       const idx = parseInt(btn.getAttribute('data-index'), 10);
       if(!isNaN(idx)){
-        teachers.splice(idx, 1);
-        saveTeachers();
-        renderTable();
+        window.__pendingDelete = { table: 'teacher', index: idx };
+        const c4 = document.querySelector('#confirm-box4');
+        if(window.gsap && c4){ gsap.to('#confirm-box4',{display:'flex'}) } else if(c4){ c4.style.display = 'flex'; }
       }
     }
   });
@@ -247,20 +249,18 @@ function teacher() {
       const target = e.target;
       if(target && target.classList && target.classList.contains('delete-super')){
         const idx = parseInt(target.getAttribute('data-index'), 10);
-        const supers = getSupers();
-        if(!isNaN(idx) && idx >= 0 && idx < supers.length){
-          supers.splice(idx, 1);
-          saveSupers(supers);
-          renderSuperTable();
+        if(!isNaN(idx)){
+          window.__pendingDelete = { table: 'super', index: idx };
+          const c4 = document.querySelector('#confirm-box4');
+          if(window.gsap && c4){ gsap.to('#confirm-box4',{display:'flex'}) } else if(c4){ c4.style.display = 'flex'; }
         }
       } else if(target.closest && target.closest('.delete-super')){
         const btn = target.closest('.delete-super');
         const idx = parseInt(btn.getAttribute('data-index'), 10);
-        const supers = getSupers();
-        if(!isNaN(idx) && idx >= 0 && idx < supers.length){
-          supers.splice(idx, 1);
-          saveSupers(supers);
-          renderSuperTable();
+        if(!isNaN(idx)){
+          window.__pendingDelete = { table: 'super', index: idx };
+          const c4 = document.querySelector('#confirm-box4');
+          if(window.gsap && c4){ gsap.to('#confirm-box4',{display:'flex'}) } else if(c4){ c4.style.display = 'flex'; }
         }
       }
     });
@@ -349,36 +349,120 @@ var clear=document.querySelector("#clear2");
   }
 }
 deleteSuper()
+
+//   var yes4 = document.querySelector('#yes4');
+//   var no4 = document.querySelector('#no4');
+//   var box4 = document.querySelector('#confirm-box4');
+//   function hideBox(){ if(window.gsap && box4){ gsap.to('#confirm-box4',{display:'none'}) } else if(box4){ box4.style.display = 'none'; } }
+//   function handleYes(){
+//       var ctx = window.__pendingDelete;
+//       if(!ctx){ hideBox(); return; }
+//       if(ctx.table === 'teacher'){
+//         var tList = JSON.parse(localStorage.getItem('teachers')) || [];
+//         if(ctx.index >= 0 && ctx.index < tList.length){
+//           tList.splice(ctx.index, 1);
+//           localStorage.setItem('teachers', JSON.stringify(tList));
+//         }
+//         // re-render if on controller page
+//         // fallthrough to refresh
+//       } else if(ctx.table === 'super'){
+//         var sList = JSON.parse(localStorage.getItem('superintendents')) || [];
+//         if(ctx.index >= 0 && ctx.index < sList.length){
+//           var removed = sList.splice(ctx.index, 1)[0];
+//           localStorage.setItem('superintendents', JSON.stringify(sList));
+//           // move back to teachers WITHOUT id/password
+//           var tList2 = JSON.parse(localStorage.getItem('teachers')) || [];
+//           tList2.push({ name: removed.name, mobile: removed.mobile, dept: removed.dept });
+//           localStorage.setItem('teachers', JSON.stringify(tList2));
+//         }
+//         if(typeof updateSuperLinkState === 'function'){ updateSuperLinkState(); }
+//       }
+//       window.__pendingDelete = null;
+//       // refresh visible tables if present
+//       var tBody = document.querySelector('#teacherTable tbody');
+//       var sBody = document.querySelector('#superTable tbody');
+//       if(tBody || sBody){ try { location.reload(); } catch(e) {} }
+//       hideBox();
+//   }
+//   if(yes4){ yes4.addEventListener('click', handleYes); }
+//   if(no4){ no4.addEventListener('click', hideBox); }
+//   // Robust: delegate too, in case dynamic content replaces nodes
+//   document.addEventListener('click', function(e){
+//     var t = e.target;
+//     if(!t) return;
+//     var clickedYes = t.closest ? t.closest('#yes4') : null;
+//     var clickedNo = t.closest ? t.closest('#no4') : null;
+//     if(clickedYes){ e.preventDefault(); handleYes(); }
+//     if(clickedNo){ e.preventDefault(); hideBox(); }
+//   }, true);
+//   // Container-scoped listener as another fallback
+//   if(box4){
+//     box4.addEventListener('click', function(e){
+//       var t = e.target;
+//       if(!t) return;
+//       if(t.id === 'yes4'){ e.preventDefault(); handleYes(); }
+//       if(t.id === 'no4'){ e.preventDefault(); hideBox(); }
+//     });
+//   }
+// })();
+function updateSuperLinkState(){
+  var superLink = document.querySelector('#superintendent');
+  if(!superLink) return;
+  var supers = JSON.parse(localStorage.getItem('superintendents')) || [];
+  if(supers.length === 0){
+    superLink.classList.add('disabled');
+  } else {
+    superLink.classList.remove('disabled');
+  }
+}
 function superintendent(){
   var superLink = document.querySelector("#superintendent");
   if(!superLink) return;
-  var supers = JSON.parse(localStorage.getItem("superintendents")) || [];
-  if(supers.length === 0){
-    superLink.classList.add("disabled");
-  } else {
-    superLink.classList.remove("disabled");
-  }
+  updateSuperLinkState();
 }
 superintendent();
 
 (function fastDeleteHook(){
-  var deleteTeachersBtn = document.querySelector('#deleteTeachers h4');
-  var deleteSupersBtn = document.querySelector('#deleteSupers h4');
-  if(deleteTeachersBtn){
-    deleteTeachersBtn.addEventListener('click', function(){
-      localStorage.setItem('teachers', JSON.stringify([]));
-      var tbody = document.querySelector('#teacherTable tbody');
-      if(tbody){ tbody.innerHTML = ""; }
-    });
+  var pending = null;
+  var box = document.querySelector('#confirm-box4');
+  var yes = document.querySelector('#yes4');
+  var no = document.querySelector('#no4');
+
+  function showConfirm(){ if(window.gsap && box){ gsap.to('#confirm-box4',{display:'flex'}) } else if(box){ box.style.display = 'flex'; } }
+  function hideConfirm(){ if(window.gsap && box){ gsap.to('#confirm-box4',{display:'none'}) } else if(box){ box.style.display = 'none'; } }
+  function onYes(){
+    if(!pending){ hideConfirm(); return; }
+    if(pending.table === 'teacher'){
+      var t = JSON.parse(localStorage.getItem('teachers')) || [];
+      if(pending.index >= 0 && pending.index < t.length){ t.splice(pending.index, 1); localStorage.setItem('teachers', JSON.stringify(t)); }
+    } else if(pending.table === 'super'){
+      var s = JSON.parse(localStorage.getItem('superintendents')) || [];
+      if(pending.index >= 0 && pending.index < s.length){
+        var removed = s.splice(pending.index, 1)[0];
+        localStorage.setItem('superintendents', JSON.stringify(s));
+        var t2 = JSON.parse(localStorage.getItem('teachers')) || [];
+        t2.push({ name: removed.name, mobile: removed.mobile, dept: removed.dept });
+        localStorage.setItem('teachers', JSON.stringify(t2));
+        if(typeof updateSuperLinkState === 'function'){ updateSuperLinkState(); }
+      }
+    }
+    pending = null;
+    hideConfirm();
+    try { location.reload(); } catch(e) {}
   }
-  if(deleteSupersBtn){
-    deleteSupersBtn.addEventListener('click', function(){
-      localStorage.setItem('superintendents', JSON.stringify([]));
-      var tbody = document.querySelector('#superTable tbody');
-      if(tbody){ tbody.innerHTML = ""; }
-      updateSuperLinkState();
-    });
-  }
+  function onNo(){ pending = null; hideConfirm(); }
+
+  if(yes){ yes.addEventListener('click', function(e){ e.preventDefault(); onYes(); }); }
+  if(no){ no.addEventListener('click', function(e){ e.preventDefault(); onNo(); }); }
+  if(box){ box.addEventListener('click', function(e){ var t=e.target; if(!t) return; if(t.id==='yes4'){ e.preventDefault(); onYes(); } if(t.id==='no4'){ e.preventDefault(); onNo(); } }); }
+
+  document.addEventListener('click', function(e){
+    var target = e.target; if(!target) return;
+    var delTeacher = target.closest ? target.closest('.delete-teacher') : null;
+    var delSuper = target.closest ? target.closest('.delete-super') : null;
+    if(delTeacher && delTeacher.getAttribute){ var idxT = parseInt(delTeacher.getAttribute('data-index'),10); if(!isNaN(idxT)){ pending = { table:'teacher', index: idxT }; showConfirm(); } }
+    else if(delSuper && delSuper.getAttribute){ var idxS = parseInt(delSuper.getAttribute('data-index'),10); if(!isNaN(idxS)){ pending = { table:'super', index: idxS }; showConfirm(); } }
+  });
 })();
 
 // Export to PDF handlers (landscape)
@@ -476,7 +560,67 @@ superintendent();
   }
 })();
 
-// Add the missing updateSuperLinkState function
+function superLogin(){
+  window.addEventListener('load', function(){
+    (function superLoginAndGuard(){
+     // If on login page, open dialog and handle login
+     var loginDialog = document.querySelector('#dialog-box2');
+     if(loginDialog){
+       try {
+         if(typeof loginDialog.showModal === 'function'){
+           loginDialog.showModal();
+         } else {
+           // Fallback if <dialog> API not supported
+           loginDialog.setAttribute('open','');
+           loginDialog.style.display = 'flex';
+         }
+       } catch(e) {
+         // Last resort fallback
+         loginDialog.setAttribute('open','');
+         loginDialog.style.display = 'flex';
+       }
+       var btn = document.querySelector('#superLoginBtn');
+       function doLogin(e){
+         if(e){ e.preventDefault(); }
+         var id = (document.querySelector('#id')||{}).value || '';
+         var pwd = (document.querySelector('#password')||{}).value || '';
+         var supers = JSON.parse(localStorage.getItem('superintendents')) || [];
+         var found = supers.find(function(s){ return (s.id===id && s.password===pwd); });
+         if(found){
+           localStorage.setItem('super_session', JSON.stringify({ id: found.id, name: found.name, ts: Date.now() }));
+           window.location.href = 'superintendent.html';
+         } else {
+           alert('Invalid ID or Password');
+         }
+       }
+       if(btn){ btn.addEventListener('click', doLogin); }
+       var form = loginDialog.querySelector('#superLoginForm');
+       if(form){ form.addEventListener('submit', doLogin); }
+       var idInput = document.querySelector('#id');
+       var pwdInput = document.querySelector('#password');
+       function onEnter(e){ if(e && e.key === 'Enter'){ e.preventDefault(); doLogin(e); } }
+       if(idInput){ idInput.addEventListener('keydown', onEnter); }
+       if(pwdInput){ pwdInput.addEventListener('keydown', onEnter); }
+     }
+     // If on superintendent page, enforce session and show logout
+     var isSuperPage = !!document.querySelector('title') && /Superintendent Panel/i.test(document.title);
+     if(isSuperPage){
+       var sessionRaw = localStorage.getItem('super_session');
+       if(!sessionRaw){
+         window.location.href = 'superLogin.html';
+         return;
+       }
+       // add simple logout button if not present
+       var btn = document.querySelector('#logoutSuper');
+       btn.addEventListener('click', function(){
+        localStorage.removeItem('super_session');
+        window.location.href = 'index.html';
+      });
+     }
+    })();
+   });
+}
+superLogin();
 function updateSuperLinkState(){
   var superLink = document.querySelector("#superintendent");
   if(!superLink) return;

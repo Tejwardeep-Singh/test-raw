@@ -41,6 +41,20 @@ body.dark #dialog-box{
     font-size: 3vh;
     cursor: pointer;
 }
+#logoutSuper{
+    color: #007bff;
+    font-size: 2.5vh;
+    font-weight: 900;
+    border-radius: 5px;
+    height: fit-content;
+    width:fit-content;
+    padding: 1%;
+    border: none;
+    position: absolute;
+    right: 6%;
+    top: 1%;
+    cursor: pointer;
+}
 #page1{
     height: 100vh;
     width: 100vw;
@@ -220,6 +234,12 @@ button:hover {
 #yes2{
     background-color: green;
 }
+#yes4{
+    background-color: red;
+}
+#no4{
+    background-color: green;
+}
 #no2{
     background-color: red;
 }
@@ -373,11 +393,11 @@ table td:nth-child(1){
     text-align: center;
 }
 table th:nth-child(7){
-    width: 5vw;
+    width: 15vw;
     text-align: center;
 }
 table td:nth-child(7){
-    width:5vw;
+    width:15vw;
     text-align: center;
 }
 table th:nth-child(8){
