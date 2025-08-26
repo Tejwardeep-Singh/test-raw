@@ -511,12 +511,12 @@ table td:nth-child(8){
     th,td{
         font-size: 0.6vh;
     }
-    form button,#addTeacher,#clear {
+    form button,#addTeacher,#clear,#clear2{
         font-size: 6px;
         padding: 6px 6px;
         margin: 10px auto;  
     }
-    #clear{
+    #clear,#clear2{
         padding: 6px 10px;
     }
     #header{
