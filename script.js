@@ -1,8 +1,10 @@
+// light and dark mode
+
 function mode()
 {
   const toggleBtn = document.getElementById("mode");
 
-if (localStorage.getItem("theme") === "dark") {
+if (localStorage.getItem("theme") === "dark") { //stores and check preffered theme
   document.body.classList.add("dark");
 }
 
@@ -19,6 +21,8 @@ toggleBtn.addEventListener("click", () => {
 });
 }
 mode();
+
+// add teacher dialog box functionality
 function toggle()
 {
     var dialog=document.querySelector("#addTeacher");
@@ -41,6 +45,9 @@ function toggle()
     }
 }
 toggle();
+
+
+// store teacher data in local storage functionality
 function teacher() {
   // Load teachers from localStorage (if available), otherwise default list
   let teachers = JSON.parse(localStorage.getItem("teachers")) || [
@@ -166,40 +173,7 @@ function teacher() {
   updateDownloadButtonStates();
 }
 
-  // Function to update download button states based on table data
-  function updateDownloadButtonStates() {
-    const teacherBtn = document.querySelector('#exportTeachers');
-    const superBtn = document.querySelector('#exportSupers');
-    
-    if (teacherBtn) {
-      if (teachers.length === 0) {
-        teacherBtn.disabled = true;
-        teacherBtn.style.opacity = '0.5';
-        teacherBtn.style.cursor = 'not-allowed';
-        teacherBtn.title = 'No teacher data available to download';
-      } else {
-        teacherBtn.disabled = false;
-        teacherBtn.style.opacity = '1';
-        teacherBtn.style.cursor = 'pointer';
-        teacherBtn.title = 'Download teacher plan';
-      }
-    }
-    
-    if (superBtn) {
-      const supers = getSupers();
-      if (supers.length === 0) {
-        superBtn.disabled = true;
-        superBtn.style.opacity = '0.5';
-        superBtn.style.cursor = 'not-allowed';
-        superBtn.title = 'No superintendent data available to download';
-      } else {
-        superBtn.disabled = false;
-        superBtn.style.opacity = '1';
-        superBtn.style.cursor = 'pointer';
-        superBtn.title = 'Download superintendent plan';
-      }
-    }
-  }
+  
 
   // Handle form submission
   if(form){
@@ -323,7 +297,10 @@ function teacher() {
   }
 }
 teacher();
+
+//deleting teacher (clear)
 function deleteTeacher(){
+  let teachers = JSON.parse(localStorage.getItem("teachers")) || [];
   var clear=document.querySelector("#clear");
   if(!clear){ return; }
   clear.addEventListener("click",function(){
@@ -375,6 +352,8 @@ function deleteTeacher(){
   }
 }
 deleteTeacher()
+
+// delete superintendent (clear)
 function deleteSuper(){
 var clear=document.querySelector("#clear2");
   if(!clear){ return; }
@@ -428,61 +407,7 @@ var clear=document.querySelector("#clear2");
 }
 deleteSuper()
 
-//   var yes4 = document.querySelector('#yes4');
-//   var no4 = document.querySelector('#no4');
-//   var box4 = document.querySelector('#confirm-box4');
-//   function hideBox(){ if(window.gsap && box4){ gsap.to('#confirm-box4',{display:'none'}) } else if(box4){ box4.style.display = 'none'; } }
-//   function handleYes(){
-//       var ctx = window.__pendingDelete;
-//       if(!ctx){ hideBox(); return; }
-//       if(ctx.table === 'teacher'){
-//         var tList = JSON.parse(localStorage.getItem('teachers')) || [];
-//         if(ctx.index >= 0 && ctx.index < tList.length){
-//           tList.splice(ctx.index, 1);
-//           localStorage.setItem('teachers', JSON.stringify(tList));
-//         }
-//         // re-render if on controller page
-//         // fallthrough to refresh
-//       } else if(ctx.table === 'super'){
-//         var sList = JSON.parse(localStorage.getItem('superintendents')) || [];
-//         if(ctx.index >= 0 && ctx.index < sList.length){
-//           var removed = sList.splice(ctx.index, 1)[0];
-//           localStorage.setItem('superintendents', JSON.stringify(sList));
-//           // move back to teachers WITHOUT id/password
-//           var tList2 = JSON.parse(localStorage.getItem('teachers')) || [];
-//           tList2.push({ name: removed.name, mobile: removed.mobile, dept: removed.dept });
-//           localStorage.setItem('teachers', JSON.stringify(tList2));
-//         }
-//         if(typeof updateSuperLinkState === 'function'){ updateSuperLinkState(); }
-//       }
-//       window.__pendingDelete = null;
-//       // refresh visible tables if present
-//       var tBody = document.querySelector('#teacherTable tbody');
-//       var sBody = document.querySelector('#superTable tbody');
-//       if(tBody || sBody){ try { location.reload(); } catch(e) {} }
-//       hideBox();
-//   }
-//   if(yes4){ yes4.addEventListener('click', handleYes); }
-//   if(no4){ no4.addEventListener('click', hideBox); }
-//   // Robust: delegate too, in case dynamic content replaces nodes
-//   document.addEventListener('click', function(e){
-//     var t = e.target;
-//     if(!t) return;
-//     var clickedYes = t.closest ? t.closest('#yes4') : null;
-//     var clickedNo = t.closest ? t.closest('#no4') : null;
-//     if(clickedYes){ e.preventDefault(); handleYes(); }
-//     if(clickedNo){ e.preventDefault(); hideBox(); }
-//   }, true);
-//   // Container-scoped listener as another fallback
-//   if(box4){
-//     box4.addEventListener('click', function(e){
-//       var t = e.target;
-//       if(!t) return;
-//       if(t.id === 'yes4'){ e.preventDefault(); handleYes(); }
-//       if(t.id === 'no4'){ e.preventDefault(); hideBox(); }
-//     });
-//   }
-// })();
+// superintendent panel button enabled and disabled
 function updateSuperLinkState(){
   var superLink = document.querySelector('#superintendent');
   if(!superLink) return;
@@ -493,6 +418,8 @@ function updateSuperLinkState(){
     superLink.classList.remove('disabled');
   }
 }
+
+// check availability of superintendent
 function superintendent(){
   var superLink = document.querySelector("#superintendent");
   if(!superLink) return;
@@ -500,6 +427,7 @@ function superintendent(){
 }
 superintendent();
 
+// update of superintendent button
 (function bindSuperLinkAutoUpdate(){
   var superLink = document.querySelector('#superintendent');
   if(!superLink) return;
@@ -510,6 +438,7 @@ superintendent();
   window.addEventListener('pageshow', refresh);
 })();
 
+// deletion of individual teacher and superintendent by clicking ❌
 (function fastDeleteHook(){
   var pending = null;
   var box = document.querySelector('#confirm-box4');
@@ -654,6 +583,7 @@ superintendent();
   }
 })();
 
+// superintendent login
 function superLogin(){
   window.addEventListener('load', function(){
     (function superLoginAndGuard(){
@@ -718,19 +648,10 @@ function superLogin(){
       });
      }
     })();
+
    });
 }
 superLogin();
-function updateSuperLinkState(){
-  var superLink = document.querySelector("#superintendent");
-  if(!superLink) return;
-  var supers = JSON.parse(localStorage.getItem("superintendents")) || [];
-  if(supers.length === 0){
-    superLink.classList.add("disabled");
-  } else {
-    superLink.classList.remove("disabled");
-  }
-}
 
 // Initialize download button states when page loads
 window.addEventListener('load', function() {
@@ -738,3 +659,39 @@ window.addEventListener('load', function() {
     updateDownloadButtonStates();
   }
 });
+
+// Function to update download button states based on table data
+  function updateDownloadButtonStates() {
+    let teachers = JSON.parse(localStorage.getItem("teachers")) || [];
+    let supers = JSON.parse(localStorage.getItem("superintendents")) || [];
+    const teacherBtn = document.querySelector('#exportTeachers');
+    const superBtn = document.querySelector('#exportSupers');
+    
+    if (teacherBtn) {
+      if (teachers.length === 0) {
+        teacherBtn.disabled = true;
+        teacherBtn.style.opacity = '0.5';
+        teacherBtn.style.cursor = 'not-allowed';
+        teacherBtn.title = 'No teacher data available to download';
+      } else {
+        teacherBtn.disabled = false;
+        teacherBtn.style.opacity = '1';
+        teacherBtn.style.cursor = 'pointer';
+        teacherBtn.title = 'Download teacher plan';
+      }
+    }
+    
+    if (superBtn) {
+      if (supers.length === 0) {
+        superBtn.disabled = true;
+        superBtn.style.opacity = '0.5';
+        superBtn.style.cursor = 'not-allowed';
+        superBtn.title = 'No superintendent data available to download';
+      } else {
+        superBtn.disabled = false;
+        superBtn.style.opacity = '1';
+        superBtn.style.cursor = 'pointer';
+        superBtn.title = 'Download superintendent plan';
+      }
+    }
+  }
