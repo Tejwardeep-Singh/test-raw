@@ -648,6 +648,140 @@ function superLogin(){
 }
 superLogin();
 
+function importExcel(){
+  const importExcelBtn = document.getElementById("import_excel");
+  const importDialogBox = document.getElementById("import-dialog-box");
+  const closeImportDialogBtn = document.getElementById("close-import-dialog");
+  const importForm = document.getElementById("import-form");
+  const excelFileInput = document.getElementById("excel_file");
+
+  if (importExcelBtn && importDialogBox) {
+    importExcelBtn.addEventListener("click", function() {
+      if (window.gsap) {
+        gsap.to(importDialogBox, {
+          display: "flex",
+          duration: 0.3, // Shorter duration for opening
+          opacity: 1,
+          scale: 1,
+          ease: "power3.out"
+        });
+      } else {
+        importDialogBox.style.display = "flex";
+      }
+    });
+  }
+
+  if (closeImportDialogBtn && importDialogBox) {
+    closeImportDialogBtn.addEventListener("click", function() {
+      if (window.gsap) {
+        gsap.to(importDialogBox, {
+          display: "none",
+          duration: 0.3, // Shorter duration for closing
+          opacity: 0,
+          scale: 0.8,
+          ease: "power3.in"
+        });
+      } else {
+        importDialogBox.style.display = "none";
+      }
+      importForm.reset(); // Clear the file input
+    });
+  }
+}
+importExcel();
+
+// File import and parsing logic
+const importForm = document.getElementById("import-form");
+if (importForm) {
+  importForm.addEventListener("submit", function(e) {
+    e.preventDefault();
+    const fileInput = document.getElementById("excel_file");
+    const file = fileInput.files[0];
+
+    if (!file) {
+      alert("Please select a file to import.");
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = function(event) {
+      const data = event.target.result;
+      let teachersData = [];
+
+      if (file.name.endsWith(".csv")) {
+        Papa.parse(data, {
+          header: true,
+          skipEmptyLines: true,
+          complete: function(results) {
+            teachersData = results.data.map(row => ({
+              name: row["Teacher Name"] || row["name"] || "",
+              mobile: row["Mobile"] || row["mobile"] || "",
+              dept: row["Department"] || row["dept"] || ""
+            }));
+            storeAndRenderTeachers(teachersData);
+          }
+        });
+      } else if (file.name.endsWith(".xls") || file.name.endsWith(".xlsx")) {
+        const workbook = XLSX.read(data, { type: "binary" });
+        const sheetName = workbook.SheetNames[0];
+        const worksheet = workbook.Sheets[sheetName];
+        const json = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+
+        if (json.length > 1) {
+          const headers = json[0];
+          teachersData = json.slice(1).map(row => {
+            let teacher = {};
+            headers.forEach((header, index) => {
+              const key = header.toLowerCase().replace(/ /g, '');
+              if (key === "teachername" || key === "name") {
+                teacher.name = row[index] || "";
+              } else if (key === "mobile") {
+                teacher.mobile = row[index] || "";
+              } else if (key === "department" || key === "dept") {
+                teacher.dept = row[index] || "";
+              }
+            });
+            return teacher;
+          });
+        }
+        storeAndRenderTeachers(teachersData);
+      } else {
+        alert("Unsupported file type. Please upload a CSV, XLS, or XLSX file.");
+      }
+    };
+
+    if (file.name.endsWith(".csv")) {
+      reader.readAsText(file);
+    } else {
+      reader.readAsBinaryString(file);
+    }
+  });
+}
+
+function storeAndRenderTeachers(newTeachers) {
+  let teachers = JSON.parse(localStorage.getItem("teachers")) || [];
+  teachers = teachers.concat(newTeachers);
+  localStorage.setItem("teachers", JSON.stringify(teachers));
+  // Re-render the main teacher table
+  teacher(); // Call the main teacher function to re-render the table
+  // Close the import dialog
+  const importDialogBox = document.getElementById("import-dialog-box");
+  const importForm = document.getElementById("import-form");
+  if (window.gsap && importDialogBox) {
+    gsap.to(importDialogBox, {
+      display: "none",
+      duration: 0.3,
+      opacity: 0,
+      scale: 0.8,
+      ease: "power3.in"
+    });
+  } else if (importDialogBox) {
+    importDialogBox.style.display = "none";
+  }
+  if(importForm) importForm.reset();
+  alert("Teacher data imported successfully!");
+}
+
 // Initialize download button states when page loads
 window.addEventListener('load', function() {
   if(typeof updateDownloadButtonStates === 'function') {

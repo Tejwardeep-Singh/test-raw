@@ -144,7 +144,7 @@
                             <button type="submit"> <i class="fa-solid fa-upload"></i> Upload Plan</button>
                         </form>
                         <form action="">
-                            <button type="submit"> <i class="fa-solid fa-pencil"></i> Edit Details</button>
+                            <button type="button" id="import_excel"> <i class="fa-solid fa-pencil"></i> Import</button>
                         </form>
                         <h4 id="addTeacher"><i class="fa-solid fa-user-plus"></i> Add Teacher</h4>
                     </div>
@@ -206,6 +206,17 @@
                 <button>Submit</button>
             </form>
         </dialog>
+        <dialog id="import-dialog-box">
+            <h2>Import Teacher Data</h2>
+            <i class="fa-solid fa-xmark" id="close-import-dialog"></i>
+            <form id="import-form">
+                <div id="label">
+                    <label for="excel_file">Upload Excel/CSV:</label>
+                    <input type="file" name="excel_file" id="excel_file" accept=".csv, .xls, .xlsx">
+                </div>
+                <button type="submit" id="upload-excel">Upload</button>
+            </form>
+        </dialog>
         <div class="confirm-box" id="confirm-box1">
             <p>Do you really want to delete the teacher data ?😟</p>
             <div class="buttons">
@@ -240,6 +251,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js" integrity="sha512-P2IDYZfqSwjcSjX0BKeNhwRUH8zRPGlgcWl5n6gBLzdi4Y5/0O4zaXrtO4K9TZK6Hn1BenYpKowuCavNandERg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
