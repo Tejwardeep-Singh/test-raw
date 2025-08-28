@@ -50,7 +50,7 @@ toggle();
 // store teacher data in local storage functionality
 function teacher() {
   // Load teachers from localStorage (if available), otherwise default list
-  let teachers = JSON.parse(localStorage.getItem("teachers"))||[];
+  let teachers = JSON.parse(localStorage.getItem("teachers")||"[]");
 
   const teachersTbody = document.querySelector("#teacherTable tbody");
   const superTbody = document.querySelector("#superTable tbody");
@@ -66,7 +66,7 @@ function teacher() {
 
   // Superintendent store
   function getSupers(){
-    return JSON.parse(localStorage.getItem("superintendents")) || [];
+    return JSON.parse(localStorage.getItem("superintendents")) || "[]";
   }
   function saveSupers(list){
     localStorage.setItem("superintendents", JSON.stringify(list));
