@@ -50,12 +50,7 @@ toggle();
 // store teacher data in local storage functionality
 function teacher() {
   // Load teachers from localStorage (if available), otherwise default list
-  let teachers = JSON.parse(localStorage.getItem("teachers")) || [
-    { name: "SANTOKH SINGH", mobile: "xxxxx-xxxxx", dept: "CSE" },
-    { name: "SHIVANI KUMARI", mobile: "xxxxx-xxxxx", dept: "CSE" },
-    { name: "GURMESH SINGH", mobile: "xxxxx-xxxxx", dept: "CSE" },
-    { name: "MANPREET KAUR", mobile: "xxxxx-xxxxx", dept: "CSE" }
-  ];
+  let teachers = JSON.parse(localStorage.getItem("teachers");
 
   const teachersTbody = document.querySelector("#teacherTable tbody");
   const superTbody = document.querySelector("#superTable tbody");
