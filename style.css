@@ -12,7 +12,7 @@ html,body{
 main{
     height: auto;
     width: 100vw;
-    overflow-x: hidden;
+    overflow-x:hidden;
     position: relative;
 }
 body.dark {
@@ -532,16 +532,21 @@ button:hover {
     #pg1-container h3{
         font-size: 1vh;
     }
-    table{
-        width: 95vw;
+    .teacher-container{
+        position: relative;
+        width:fit-content;
+        overflow-x: scroll;
+        justify-content: start;
+        -webkit-overflow-scrolling: touch; /* Smooth on mobile */
     }
-    th,td{
-        font-size: 0.6vh;
+    table{
+        width: max-content;
+
     }
     form button,#addTeacher,#clear,#clear2{
         font-size: 6px;
         padding: 6px 6px;
-        margin: 10px auto;  
+        margin: 10px 8px;  
     }
     #clear,#clear2{
         padding: 6px 10px;
@@ -654,4 +659,45 @@ body.dark #exportSupers:disabled {
     background-color: #333 !important;
     color: #555 !important;
     border-color: #555 !important;
+}
+
+
+th, td {
+  color: #111;
+  text-align: start;
+  width: auto;            /* let cells size naturally */
+  font-weight: 600;
+  border: 0.5px solid #111;
+  padding: 4px;
+}
+/* -------- table-scroll containers --------- */
+.teacher-container {
+  width: 100%;                   /* wrapper is viewport-width */
+  overflow-x: auto;              /* allow horizontal scrolling inside wrapper */
+  -webkit-overflow-scrolling: touch;
+  position: relative;
+}
+
+/* make tables naturally as wide as their content */
+#teacherTable,
+#superTable {
+  width:100%;            /* table will take its natural width */
+  min-width: 900px;              /* ensures overflow on small screens; tweak as needed */
+  table-layout: auto;            /* columns size by content */
+  border-collapse: collapse;
+}
+
+/* stop wrapping on mobile so the scrollbar appears and columns keep their width */
+@media only screen and (max-width: 768px) {
+  #teacherTable th, #teacherTable td,
+  #superTable th, #superTable td {
+    white-space: nowrap;         /* prevent cell wrapping which hides overflow */
+    width: auto;                 /* override any fixed widths */
+  }
+
+  /* If needed, reduce min-width for very narrow phones */
+  #teacherTable, #superTable {
+    width:max-content;  
+    min-width: 700px;
+  }
 }
